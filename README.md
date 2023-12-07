@@ -1,9 +1,10 @@
 # MongoDB 7.0.2 Standalone Installation offline and Configuration on Ubuntu
 
-This guide provides step-by-step instructions to install MongoDB 7.0.2 standalone version offline on Ubuntu. It also covers changing the `dbPath`, `logPath`, and `port number`.
+This guide provides step-by-step instructions to install MongoDB 7.0.2 standalone version offline on Ubuntu. It also covers changing the `dbPath`, `logPath`, also `port number`and make `authorization` 
 
 ## Server Details
-
+- **OS:** ubuntu 20.0.4
+- **Software version** mongod 7.0.2
 - **Server Name:** ser01
 - **IP Address:** 192.168.225.150
 
