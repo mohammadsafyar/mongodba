@@ -57,24 +57,48 @@ sudo nano /etc/mongod.conf
 ``````conf
 # mongod.conf
 
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
 # Where and how to store data.
 storage:
-  dbPath: /var/mongodb/dbfile
+  dbPath: /var/mongodb/datafile/
+  directoryPerDB: true
 
-# Where to write logging data.
+#  engine:
+  wiredTiger:
+     engineConfig:
+        directoryForIndexes: true
+# where to write logging data.
 systemLog:
   destination: file
   logAppend: true
   path: /var/mongodb/logfile/mongod.log
 
-# Network interfaces
+# network interfaces
 net:
   port: 50433
   bindIp: 127.0.0.1
 
-# How the process runs
+
+# how the process runs
 processManagement:
   timeZoneInfo: /usr/share/zoneinfo
+
+#security:
+
+#operationProfiling:
+
+#replication:
+
+#sharding:
+
+## Enterprise-Only Options:
+
+#auditLog:
+
+
+
 ``````
 
 
