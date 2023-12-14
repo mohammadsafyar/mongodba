@@ -41,10 +41,19 @@ These directories will be used to store MongoDB data files (/var/mongodb/dbfile)
 Set permissions for the new MongoDB data and log directories.
 ````
 sudo chown -R mongodb:mongodb /var/mongodb/logfile/
-sudo chown -R mongodb:mongodb /var/mongodb/dbfile/
+sudo chown -R mongodb:mongodb /var/mongodb/datafile/
 ``````
 
-
+You need to create a user with the userAdminAnyDatabase role, which grants the privilege to create other users on any existing database. The following example will create the useradmin user with password “msaf”:
+```
+> db.createUser(
+  {
+    user: "msaf",
+    pwd: "123",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+```
 ## 3. Check MongoDB Status:
 
 Configure MongoDB:
@@ -55,26 +64,49 @@ sudo nano /etc/mongod.conf
 ``````
 
 ``````conf
+
 # mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
 
 # Where and how to store data.
 storage:
-  dbPath: /var/mongodb/dbfile
-
-# Where to write logging data.
+  dbPath: /var/mongodb/datafile
+  directoryPerDB: true
+#  engine:
+#  wiredTiger:
+  wiredTiger:
+     engineConfig:
+        directoryForIndexes: true
+# where to write logging data.
 systemLog:
   destination: file
   logAppend: true
   path: /var/mongodb/logfile/mongod.log
 
-# Network interfaces
+# network interfaces
 net:
   port: 50433
   bindIp: 127.0.0.1
 
-# How the process runs
+
+# how the process runs
 processManagement:
   timeZoneInfo: /usr/share/zoneinfo
+
+security:
+    authorization: "enabled"
+#operationProfiling:
+
+#replication:
+
+#sharding:
+
+## Enterprise-Only Options:
+
+#auditLog:
+
 ``````
 
 
